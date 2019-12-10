@@ -24,7 +24,6 @@ module.exports = (connection) => {
                 throw error
             }
 
-
             return wallets.updateOne(
                 {
                     vaultId: vaultId
