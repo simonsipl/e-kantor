@@ -25,7 +25,6 @@ module.exports = (connection) => {
             return users.insertOne(
                 { email, password, name, surname, vaultId },
             )
-
         }
     }
 };

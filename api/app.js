@@ -20,7 +20,7 @@ module.exports = (connection) => {
     }
 
     app.use('/api/user', userConfig(connection));
-    //app.use('/api/wallet', walletConfig(connection));
+    app.use('/api/wallet', walletConfig(connection));
 
 
     app.use(notFoundError);
