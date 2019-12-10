@@ -11,8 +11,15 @@ module.exports = ({ walletService, walletRepository, userRepository }) => withEr
     async createWallet(req, res, next) {
         const { email } = req.body
         const user = await userRepository.me({ email });
-        await walletService.createWallet(user);
+        await walletRepository.createWallet(user);
         responses.createWallet(email, res);
     },
+    async exchange(req, res, next) {
+        const { email, balance, currencyBalance } = req.body
+        const user = await userRepository.me({ email });
+        await walletRepository.exchange(user, balance, currencyBalance);
+        responses.exchangeCurrency(balance, currencyBalance, res);
+
+    }
 
 })
