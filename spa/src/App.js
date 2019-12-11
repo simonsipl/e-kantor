@@ -7,7 +7,8 @@ import { withStyles } from '@material-ui/core'
 
 import ExchangeTable from './containers/ExchangeTable/ExchangeTable'
 import MainMenu from './components/MainMenu';
-import LoginComponent from './containers/Login/Login'
+import Login from './containers/Login/Login'
+import Register from './containers/Register/Register'
 
 const styles = theme => ({
   title: {
@@ -62,10 +63,10 @@ class App extends Component {
         <MainMenu auth={this.state.auth} user={this.state.user} />
         <Switch>
           <Route path="/" exact render={(props) =>
-            this.state.auth ? <ExchangeTable {...props} WebSocketData={this.state.WebSocketData} /> : <LoginComponent {...props} isAuth={this.isAuth}
+            this.state.auth ? <ExchangeTable {...props} WebSocketData={this.state.WebSocketData} /> : <Login {...props} isAuth={this.isAuth}
             />} />
-          <Route path="/register" render={() => <h1>Register</h1>} />
-          <Route path="/login" render={(props) => <LoginComponent {...props} isAuth={this.isAuth} />} />
+          <Route path="/register" render={(props) => <Register {...props} />} />
+          <Route path="/login" render={(props) => <Login {...props} isAuth={this.isAuth} />} />
         </Switch>
 
       </div >
