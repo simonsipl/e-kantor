@@ -3,6 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  useLocation,
+  useHistory
 
 } from "react-router-dom";
 import { withStyles } from '@material-ui/core'
@@ -37,7 +39,6 @@ class App extends Component {
   ws = new WebSocket('ws://webtask.future-processing.com:8068/ws/currencies');
 
   componentDidMount() {
-    console.log(this)
 
     this.ws.onmessage = evt => {
       // listen to data sent from the websocket server
@@ -58,12 +59,13 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div className='App'>
         <MainMenu auth={this.state.auth} user={this.state.user} />
         <Switch>
-          <Route path="/" exact render={(props) => <ExchangeTable {...props} WebSocketData={this.state.WebSocketData} />} />
+          <Route path="/" exact render={(props) =>
+            this.state.auth ? <ExchangeTable {...props} WebSocketData={this.state.WebSocketData} /> : <LoginComponent {...props} isAuth={this.isAuth}
+            />} />
           <Route path="/register" render={() => <h1>Register</h1>} />
           <Route path="/login" render={(props) => <LoginComponent {...props} isAuth={this.isAuth} />} />
         </Switch>

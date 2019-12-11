@@ -26,7 +26,6 @@ const ExchangeTable = (props) => {
 
     const { Items } = WebSocketData
 
-    console.log(Items)
 
     return (
         <Grid container spacing={3}>
@@ -56,7 +55,6 @@ const ExchangeTable = (props) => {
                                     <TableCell>
                                         <button
                                             onClick={(e) => {
-                                                console.log(index)
                                             }}>
                                             Buy
                                     </button>

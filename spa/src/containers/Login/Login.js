@@ -57,7 +57,6 @@ const Login = (props) => {
     }
     const onSubmit = async (e) => {
         e.preventDefault()
-        console.log(values)
 
         const response = await fetch('/api/user/login', {
             method: 'post',
