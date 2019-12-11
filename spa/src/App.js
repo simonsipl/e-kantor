@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  useLocation,
-  useHistory
-
 } from "react-router-dom";
 import { withStyles } from '@material-ui/core'
 
@@ -33,7 +29,7 @@ class App extends Component {
       Items: [],
     },
     auth: false,
-    user: 'Szymon Stanisz'
+    user: null
   }
 
   ws = new WebSocket('ws://webtask.future-processing.com:8068/ws/currencies');
@@ -52,11 +48,13 @@ class App extends Component {
     }
   }
 
-  isAuth = (val) => {
+  isAuth = (val, body) => {
     this.setState({
-      auth: val
+      auth: val,
+      user: body
     })
   }
+
 
   render() {
     return (

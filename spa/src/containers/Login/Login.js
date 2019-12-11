@@ -1,9 +1,5 @@
 import React from 'react'
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect,
     useHistory,
     useLocation
 } from "react-router-dom";
@@ -68,12 +64,14 @@ const Login = (props) => {
 
         const body = await response.json();
         if (response.status !== 200) {
-            throw new Error ('Authentication Error')
+            throw new Error('Authentication Error')
         }
 
         history.replace(from);
 
-        return props.isAuth(true);
+
+
+        return props.isAuth(true, body);
     }
 
     return (
