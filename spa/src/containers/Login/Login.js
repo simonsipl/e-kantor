@@ -1,5 +1,12 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+    useHistory,
+    useLocation
+} from "react-router-dom";
 import {
     Avatar,
     Button,
@@ -38,15 +45,36 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Login = (props) => {
+    let history = useHistory();
+    let location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
+
     const classes = useStyles();
     let values = {}
 
     const handleChange = (event) => {
         values[event.target.name] = event.target.value
     }
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
-        props.onSubmit(e, values)
+        console.log(values)
+
+        const response = await fetch('/api/user/login', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values)
+        });
+
+        const body = await response.json();
+        if (response.status !== 200) {
+            throw new Error ('Authentication Error')
+        }
+
+        history.replace(from);
+
+        return props.isAuth(true);
     }
 
     return (
@@ -58,7 +86,7 @@ const Login = (props) => {
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in
-        </Typography>
+                </Typography>
                 <form
                     className={classes.form}
                     onSubmit={onSubmit}
