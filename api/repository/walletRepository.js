@@ -23,8 +23,7 @@ module.exports = (connection) => {
                 error.message = "Wallet with id " + vaultId + " is doesn't exists";
                 throw error
             }
-
-
+          
             return wallets.updateOne(
                 {
                     vaultId: vaultId
