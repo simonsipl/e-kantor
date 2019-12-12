@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "set NODE_ENV=production node server.js",
+    "dev": "set NODE_ENV=dev && nodemon server.js"
+  },
+  "author": "Stanisz Szymon",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "16.1.8",
+    "auditjs": "3.2.4",
+    "bcryptjs": "2.4.3",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "express-session": "^1.17.0",
+    "lodash.mapvalues": "4.6.0",
+    "mongodb": "3.3.5",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.1"
+  }
+}
