@@ -1,13 +1,15 @@
 module.exports = {
-    createWallet(email, res) {
+    createWallet({email}, res) {
         res.status(200).json('Wallet created for user ' + email);
     },
-    exchangeCurrency(balance, currencyBalance, res){
+    exchangeCurrency(wallet, res){
         res.status(200).json({
-            balance,
-            currencyBalance,
+            wallet,
             message: 'Vault balance updated'
         })
-    }
+    },
+    getWallet(wallet, res) {
+        res.status(200).json(wallet);
+    },
 
 }

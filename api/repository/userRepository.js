@@ -3,8 +3,8 @@ module.exports = (connection) => {
     return {
         async me({ email }) {
             const user = await users.findOne({ email })
-
             if (!user) {
+
                 const error = new Error('Bad request');
                 error.status = 400;
                 error.message = 'User not found';
@@ -22,9 +22,11 @@ module.exports = (connection) => {
                 throw error
             }
 
-            return users.insertOne(
+            await users.insertOne(
                 { email, password, name, surname, vaultId },
             )
+
+            return await users.findOne({ email })
         }
     }
 };

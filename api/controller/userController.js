@@ -10,14 +10,15 @@ function withErrorHandling(api) {
 
 module.exports = ({ userService, userRepository }) => withErrorHandling({
     async register(req, res, next) {
-        await userService.register(req.body);
-        responses.register(req.body.email, res);
+        const user = await userService.register(req.body);
+        responses.register(user, res);
     },
     async login(req, res, next) {
         const { email, password } = req.body;
         const user = await userRepository.me({ email });
 
         if (user && await bcrypt.compare(password, user.password)) {
+
             req.session.user = { userId: user._id }
             responses.login(req.body.email, res)
         }

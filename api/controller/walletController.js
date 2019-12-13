@@ -9,17 +9,22 @@ function withErrorHandling(api) {
 
 module.exports = ({ walletService, walletRepository, userRepository }) => withErrorHandling({
     async createWallet(req, res, next) {
-        const { email } = req.body
-        const user = await userRepository.me({ email });
+        const user = req.body
         await walletRepository.createWallet(user);
-        responses.createWallet(email, res);
+        responses.createWallet(user, res);
     },
     async exchange(req, res, next) {
-        const { email, balance, currencyBalance } = req.body
-        const user = await userRepository.me({ email });
-        await walletRepository.exchange(user, balance, currencyBalance);
-        responses.exchangeCurrency(balance, currencyBalance, res);
+        const { email, type, currencyBalance } = req.body
+        const user = await userRepository.me({email});
 
+        const wallet = await walletService.exchange(user, type, currencyBalance);
+        responses.exchangeCurrency(wallet, res);
+    },
+    async getWallet(req, res, next) {
+        const { email } = req.body;
+        const user = await userRepository.me({ email });
+        const wallet = await walletRepository.getWallet(user);
+        responses.getWallet(wallet, res)
     }
 
 })

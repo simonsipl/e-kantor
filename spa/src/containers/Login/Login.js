@@ -69,8 +69,6 @@ const Login = (props) => {
 
         history.replace(from);
 
-
-
         return props.isAuth(true, body);
     }
 

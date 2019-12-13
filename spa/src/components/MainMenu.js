@@ -78,7 +78,7 @@ class MainMenu extends Component {
                                         <Link href="/profile" underline="none">Profile</Link>
                                     </MenuItem>
                                     <MenuItem onClick={handleClose} >
-                                        <Link href="/logout" underline="none">Logout</Link>
+                                        <Link href="/logout" underline="none" onClick={()=> localStorage.clear()}>Logout</Link>
                                     </MenuItem>
                                 </Menu>
                             </div>

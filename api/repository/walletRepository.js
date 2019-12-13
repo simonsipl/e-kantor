@@ -11,7 +11,7 @@ module.exports = (connection) => {
             }
 
             return wallets.insertOne(
-                { vaultId },
+                { vaultId, balance: 15000 },
                 { upsert: true }
             )
         },
@@ -23,19 +23,33 @@ module.exports = (connection) => {
                 error.message = "Wallet with id " + vaultId + " is doesn't exists";
                 throw error
             }
-          
-            return wallets.updateOne(
+            await wallets.updateOne(
                 {
                     vaultId: vaultId
                 },
                 {
                     $set: {
                         balance,
-                        currencyBalance
+                        [currencyBalance.name]: currencyBalance.amount
                     }
                 },
-                { upsert: true }
-            )
-        }
+                {
+                    upsert: true
+                }
+            );
+           
+
+            return wallets.findOne({ vaultId })
+        },
+        async getWallet({ email, vaultId }) {
+            if (!await wallets.findOne({ vaultId })) {
+                const error = new Error('Not Found');
+                error.status = 409;
+                error.message = "Wallet for " + email + " not found";
+                throw error
+            }
+
+            return wallets.findOne({ vaultId })
+        },
     }
 };
